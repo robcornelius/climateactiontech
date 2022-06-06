@@ -11,6 +11,9 @@
 # production
 /build
 
+#dummy data to keep uploads small
+/public/data
+
 # misc
 .DS_Store
 .env.local
