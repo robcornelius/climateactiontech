@@ -1,8 +1,12 @@
-import React, { useRef } from "react";
+import React from "react";
 import styled from "styled-components";
 import useSearchTerm from "../../hooks/SearchTerm";
+/* 
+    normally this would come from an endpoint and I converted the CSV to JSON
+*/
+import allResults from "../../final.json";
 
-const StyledInput = styled.input`
+const StyledSelect = styled.select`
     border: 1px solid orange;
     border-radius: 5px;
     margin: 0 20px;
@@ -10,32 +14,34 @@ const StyledInput = styled.input`
     width: 75%;
 `;
 
-const StyledButton = styled.button`
-    background: orange;
-    colour: white;
-    border: 1px solid white;
-    border-radius: 5px;
-    padding: 7px;
-    color: white;
-`;
-
-
 const Search = () => {
 
-  const { setSearchTerm } = useSearchTerm();
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { setSearchTerm, setUniqueSectors } = useSearchTerm();
 
-  const searchButtonHandler = (ev: React.MouseEvent<HTMLButtonElement>) => {
+  const allSectors: string[] = [];
+
+  allResults.forEach(element => {
+    element.sectors.forEach(sector => {
+      allSectors.push(sector);
+    });    
+  });
+  const uniqueSectors = [...new Set(allSectors)];
+
+  const searchHandler = (ev: React.ChangeEvent<HTMLSelectElement>) => {
     ev.preventDefault();
-    if (null !== inputRef.current) {
-      setSearchTerm(inputRef.current.value);
-    }
+    setUniqueSectors(uniqueSectors);
+    setSearchTerm(ev.currentTarget.value);
   };
 
   return (
     <>
-      <StyledInput type="text" id="searchBox" ref={inputRef} placeholder="Search"/>
-      <StyledButton onClick={searchButtonHandler}>GO!</StyledButton>
+      <StyledSelect id="searchBox" onChange={searchHandler} placeholder="Search">
+        {
+          uniqueSectors.map((sector) => {
+            return (<option key={sector} value={sector}>{sector}</option>);
+          })
+        }
+      </StyledSelect>
     </>
   );
 };
