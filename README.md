@@ -14,33 +14,33 @@ Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
-### `npm test`
+## Some points
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+I converted the CSV to JSON as I would hope that is what a GET endpoint would return. I also trucated it for brevity
 
-### `npm run build`
+I also produced a JSON file for the unique sector names in the converted JSON file to mock an endpoint which returns this.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+For both of these JSON files I simply used an `import` statement rather than using `fetch` or using `axios`. Again this was just to save time.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+### If I had time to write some tests I would do the following.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Test the drop down shows all the unique sectors from the endpoint.
 
-### `npm run eject`
+use `cypress` to select a random option in the drop down and then check a few random rows in the table have ticks and crosses in the right places.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Other things I would do on something on a larger scale project
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* use react-query to abstract away calls to the back end, maintain state between the front and the back end etc.
+* probably use a widget library such as `materialUi`, `antd` or similar rather than start from scratch. Its still possible to use `styled-components` with those libraries
+* create a CI/CD pipeline using what ever tools are available. If nothing else just running `npm test` to pass or fail a build.
+* create a design system using `storybook` for components. Hook that into CI/CD for detecting visual changes. Teach UX/UI designers to love it
+* sort out `prettier` fighting with `eslint`. Probably by only having one
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### In the distant future
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+* use NPM to bundle up components
+* tie NPM to CI/CI and `storybook`
+* set up code coverage for tests and tie it to CI/CD
+* use `husky` to generate git hooks to prevent pesky `console` and `debugger` statements winding up in the build
+* containerization...
+* I could go on...
