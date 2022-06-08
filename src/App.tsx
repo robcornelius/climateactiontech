@@ -1,5 +1,6 @@
 import React from "react";
 import Search from "./components/Search/Search";
+import Results from "./components/Results/Results";
 import SearchTermProvider from "./contexts/SearchTerm";
 
 function App() {
@@ -19,6 +20,7 @@ function App() {
           <section className="results">
             <header>
               <h2>Results</h2>
+              <Results/>
             </header>
           </section>
         </div>
