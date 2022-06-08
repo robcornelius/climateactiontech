@@ -4,6 +4,7 @@ import useSearchTerm from "../../hooks/SearchTerm";
 /* 
     normally this would come from an endpoint and I converted the CSV to JSON and removed about half of the data for brevity
 */
+import uniqueSectors from "../../uniqueSectors.json";
 import allResults from "../../final.json";
 
 type resultsType = {
@@ -28,7 +29,7 @@ const PrettyTable = styled.table`
 `;
 
 const Results = () => {
-  const { searchTerm, uniqueSectors } = useSearchTerm();
+  const { searchTerm } = useSearchTerm();
   const [filteredResults, setFilteredResults] = useState<resultsType[]>();
   const results: resultsType[] = [];
   useEffect(() => {

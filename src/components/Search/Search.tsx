@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import useSearchTerm from "../../hooks/SearchTerm";
+import uniqueSectors from "../../uniqueSectors.json";
 /* 
     normally this would come from an endpoint and I converted the CSV to JSON
 */
-import allResults from "../../final.json";
-
 const StyledSelect = styled.select`
     border: 1px solid orange;
     border-radius: 5px;
@@ -16,20 +15,10 @@ const StyledSelect = styled.select`
 
 const Search = () => {
 
-  const { setSearchTerm, setUniqueSectors } = useSearchTerm();
-
-  const allSectors: string[] = [];
-
-  allResults.forEach(element => {
-    element.sectors.forEach(sector => {
-      allSectors.push(sector);
-    });    
-  });
-  const uniqueSectors = [...new Set(allSectors)];
+  const { setSearchTerm } = useSearchTerm();
 
   const searchHandler = (ev: React.ChangeEvent<HTMLSelectElement>) => {
     ev.preventDefault();
-    setUniqueSectors(uniqueSectors);
     setSearchTerm(ev.currentTarget.value);
   };
 
